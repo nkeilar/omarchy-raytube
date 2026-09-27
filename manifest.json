@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "id": "nathank.raytube",
+  "name": "Raytube",
+  "version": "1.0.0",
+  "author": "nathank",
+  "license": "MIT",
+  "description": "Cast menu for the Omarchy bar: cast the laptop screen or a separate TV desktop to an Apple TV (AirPlay) or a Chromecast. Needs the raytube tools (raytube-cast, raytube-tv) on PATH.",
+  "kinds": [
+    "bar-widget"
+  ],
+  "entryPoints": {
+    "barWidget": "Panel.qml"
+  },
+  "barWidget": {
+    "displayName": "Raytube",
+    "description": "Pick a TV and cast to it: the screen or the TV desktop, sound sync, picture size, and TV desktop scenes, layouts and rotation.",
+    "category": "System",
+    "defaultSection": "right",
+    "allowMultiple": false
+  }
+}
