@@ -116,6 +116,21 @@ Panel {
     if (!tvProc.running) tvProc.running = true
   }
 
+  // TV sound on/off: mutes only what the TV receives (the laptop and
+  // headphones keep playing). Read from `raytube-cast tv-sound`.
+  property bool tvSound: true
+  function refreshTvSound() {
+    if (!root.castTarget || tvSoundProc.running) return
+    tvSoundProc.command = ["raytube-cast", "tv-sound"]
+    tvSoundProc.running = true
+  }
+  function toggleTvSound() {
+    if (!root.castTarget || tvSoundProc.running) return
+    root.tvSound = !root.tvSound
+    tvSoundProc.command = ["raytube-cast", "tv-sound", root.tvSound ? "on" : "off"]
+    tvSoundProc.running = true
+  }
+
   // Restart the cast session: a fresh session always starts in sync.
   function resyncCast() {
     if (!root.castTarget || castActionProc.running) return
@@ -285,6 +300,14 @@ Panel {
 
   // `raytube-cast status`: "on<TAB>ip<TAB>name[<TAB>mode]" or "off".
   Process {
+    id: tvSoundProc
+    stdout: StdioCollector {
+      waitForEnd: true
+      onStreamFinished: root.tvSound = String(text || "").trim().indexOf("off") !== 0
+    }
+  }
+
+  Process {
     id: castStatusProc
     command: ["raytube-cast", "status"]
     stdout: StdioCollector {
@@ -293,6 +316,7 @@ Panel {
         var f = String(text || "").trim().split("\t")
         root.castTarget = f[0] === "on" && f.length > 1 ? f[1] : ""
         root.refreshAvDelay()
+        root.refreshTvSound()
       }
     }
   }
@@ -564,6 +588,19 @@ Panel {
               verticalPadding: Style.spacing.controlPaddingY
               bordered: true
               onClicked: root.resyncCast()
+            }
+
+            Button {
+              width: parent.width
+              visible: root.castTarget !== ""
+              text: root.tvSound ? "TV sound: on" : "TV sound: off (laptop only)"
+              fontSize: Style.font.caption
+              foreground: root.fg
+              fontFamily: root.fontFamily
+              verticalPadding: Style.spacing.controlPaddingY
+              bordered: true
+              active: !root.tvSound
+              onClicked: root.toggleTvSound()
             }
           }
 
