@@ -5,7 +5,7 @@ a TV, and your laptop screen (or a separate "TV desktop") appears on it with
 sound. It works with an Apple TV over AirPlay and with a Chromecast.
 
 The plugin is only the menu. The casting itself is done by the
-[raytube](https://github.com/<owner>/raytube) command-line tools, which the menu
+[raytube](https://github.com/nkeilar/raytube) command-line tools, which the menu
 calls (`raytube-cast` and `raytube-tv`).
 
 ![Raytube cast menu](preview.png)
@@ -48,14 +48,14 @@ repository instead of showing controls.
 
 ## Requirements
 
-- The [raytube](https://github.com/<owner>/raytube) tools installed, with
+- The [raytube](https://github.com/nkeilar/raytube) tools installed, with
   `raytube-cast` and `raytube-tv` on `PATH` (for example in `~/.local/bin`).
 - Omarchy 4 with the Lua Hyprland config.
 
 ## Install
 
 ```bash
-omarchy plugin add https://github.com/<owner>/omarchy-raytube --enable
+omarchy plugin add https://github.com/nkeilar/omarchy-raytube --enable
 ```
 
 Or by hand: copy this directory to `~/.config/omarchy/plugins/nathank.raytube/`,

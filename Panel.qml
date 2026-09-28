@@ -16,7 +16,7 @@ Panel {
   //   omarchy-shell nathank.raytube toggle
   ipcTarget: "nathank.raytube"
 
-  readonly property string projectUrl: "github.com/<owner>/raytube"
+  readonly property string projectUrl: "github.com/nkeilar/raytube"
 
   // The bar facade can be briefly null while the shell hot-reloads plugins.
   readonly property color fg: root.bar ? root.bar.foreground : Color.foreground
